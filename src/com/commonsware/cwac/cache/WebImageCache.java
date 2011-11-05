@@ -59,13 +59,8 @@ public class WebImageCache
 		md.update(s.getBytes());
 		
 		byte digest[]=md.digest();
-		StringBuffer result=new StringBuffer();
-		
-		for (int i=0; i<digest.length; i++) {
-			result.append(Integer.toHexString(0xFF & digest[i]));
-		}
-				
-		return(result.toString());
+		BigInteger bi = new BigInteger(1, digest);
+		return String.format("%0" + (digest.length << 1) + "x", bi);
 	}
 	
 	public WebImageCache(File cacheRoot, SimpleBus bus,
