@@ -59,13 +59,15 @@ public class SimpleWebImageCache<B extends AbstractBus, M>
 		md.update(s.getBytes());
 		
 		byte digest[]=md.digest();
-		StringBuffer result=new StringBuffer();
-		
-		for (int i=0; i<digest.length; i++) {
-			result.append(Integer.toHexString(0xFF & digest[i]));
+		char[] hexArray = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+		char[] hexChars = new char[digest.length * 2];
+		int v;
+		for ( int j = 0; j < digest.length; j++ ) {
+			v = digest[j] & 0xFF;
+			hexChars[j*2] = hexArray[v/16];
+			hexChars[j*2 + 1] = hexArray[v%16];
 		}
-				
-		return(result.toString());
+		return new String(hexChars);
 	}
 	
 	public SimpleWebImageCache(File cacheRoot,
