@@ -38,7 +38,7 @@
         <version>4.8.2</version>
     </dependency>
     <dependency>
-      <groupId>winterwell</groupId>
+      <groupId>com.winterwell</groupId>
       <artifactId>jtwitter</artifactId>
       <version>1.6.0-yamba</version>
       <scope>compile</scope>
