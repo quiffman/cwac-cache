@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -59,15 +60,8 @@ public class SimpleWebImageCache<B extends AbstractBus, M>
 		md.update(s.getBytes());
 		
 		byte digest[]=md.digest();
-		char[] hexArray = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
-		char[] hexChars = new char[digest.length * 2];
-		int v;
-		for ( int j = 0; j < digest.length; j++ ) {
-			v = digest[j] & 0xFF;
-			hexChars[j*2] = hexArray[v/16];
-			hexChars[j*2 + 1] = hexArray[v%16];
-		}
-		return new String(hexChars);
+		BigInteger bi = new BigInteger(1, digest);
+		return String.format("%0" + (digest.length << 1) + "x", bi);
 	}
 	
 	public SimpleWebImageCache(File cacheRoot,
