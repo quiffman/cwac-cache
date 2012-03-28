@@ -178,6 +178,7 @@ public class SimpleWebImageCache<B extends AbstractBus, M>
 			File cache=(File)params[2];
 			
 			try {
+				cache.getAbsoluteFile().setLastModified(System.currentTimeMillis());
 				put(url, new BitmapDrawable(cache.getAbsolutePath()));
 				
 //				M message=(M)params[0];
